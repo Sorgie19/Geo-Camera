@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void dispatchTakePictureIntent(){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takePictureIntent.resolveActivity(getPackageManager()) != null)
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //What to do after picture has been taken
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Used to create the image file
     private File createImageFile(){
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         gps = new GPSTracker(MainActivity.this);
@@ -136,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return image;
     }
 
+    //Used to show image after taken
     private void previewImage()
     {
         Uri uri = photoURI;

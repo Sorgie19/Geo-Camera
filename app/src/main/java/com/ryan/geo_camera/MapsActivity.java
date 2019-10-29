@@ -48,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         for(int i = 0; i < photoInformation.size(); i++)
         {
+            //File format example
             //JPEG_20191024_171032_36.089_-94.199_6748836076339466660.jpg
             double lat = photoInformation.get(i).latitude;
             double lon = photoInformation.get(i).longitude;
@@ -61,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPlace));
     }
 
+    //Gets all the file names in a directory
     private ArrayList<String> getAllFiles(String directory)
     {
         ArrayList<String> result = new ArrayList<String>();
@@ -73,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         return result;
     }
 
+    //Used to split up the file name so I can get lat and long and title etc
     private ArrayList<pair> splitFileName(ArrayList<String> stringToSplit)
     {
         ArrayList<pair> split = new ArrayList<pair>();
@@ -88,6 +91,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         }
         return split;
     }
+
+    //Used to try to click on marker (Not working)
 
     @Override
     public boolean onMarkerClick(final Marker marker)
@@ -108,6 +113,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     }
 }
 
+//Class that is used to hold all the information about the photo
 class pair
 {
     String photoName;
