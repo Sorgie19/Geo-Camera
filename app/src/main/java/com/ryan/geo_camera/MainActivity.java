@@ -5,7 +5,6 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,13 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.os.Environment.DIRECTORY_PICTURES;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
                     {
                         double latitude = gps.getLatitude();
                         double longitude = gps.getLongitude();
-                        Toast.makeText(this, "Your location is: " + latitude + " " + longitude, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Your location is: " + latitude + " " + longitude, Toast.LENGTH_SHORT).show();
                         Log.d("location", "Latitude: " + latitude);
                         Log.d("location", "Longitude: " + longitude);
                         Intent intent = new Intent(this, MapsActivity.class);
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
+                        intent.putExtra("URI", photoURI);
                         startActivity(intent);
-
                     }
                     else
                     {
@@ -118,14 +115,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (resultCode == RESULT_CANCELED) {
             // user cancelled Image capture
-            Toast.makeText(getApplicationContext(),
-                    "Cancelled", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getApplicationContext(),"Cancelled", Toast.LENGTH_SHORT).show();
         } else {
             // failed to capture image
-            Toast.makeText(getApplicationContext(),
-                    "Error!", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getApplicationContext(),"Error!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -153,25 +146,4 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Image saved to:\n" + uri.toString(), Toast.LENGTH_LONG).show();
         mImageView.setImageBitmap(bitmap);
     }
-
-    private void previewCapturedImage() {
-        try {
-            mImageView.setVisibility(View.VISIBLE);
-
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
-
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            final Bitmap bitmap = BitmapFactory.decodeFile(photoURI.getPath(), options);
-
-           mImageView.setImageBitmap(bitmap);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
